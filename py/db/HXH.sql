@@ -1,0 +1,113 @@
+CREATE TABLE `CFG_ACTION_FUNC`  (
+  `ORDER_NO` int NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `CUR_ROLE` varchar(10) NOT NULL COMMENT '当前角色ID',
+  `ACTION_FUNC` varchar(100) NOT NULL COMMENT '操作类型',
+  `TAR_ROLE` varchar(10) NOT NULL COMMENT '目标角色ID',
+  PRIMARY KEY (`ORDER_NO`)
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '用户操作配置表';
+
+CREATE TABLE `CFG_COMBOL`  (
+  `CONFIG_ID` int NOT NULL AUTO_INCREMENT COMMENT '参数ID',
+  `CONFIG_KEY` varchar(50) NULL COMMENT '参数键名',
+  `CONFIG_VALUE` varchar(150) NULL COMMENT '参数键值',
+  `CONFIG_VALUE_HK` varchar(150) NULL COMMENT '参数键值',
+  `CONFIG_VALUE_EN` varchar(150) NULL COMMENT '参数键值',
+  `CONFIG_TYPE` char(1) NULL DEFAULT 'U' COMMENT 'S系统内置 U用户添加',
+  `CREATE_USER` varchar(30) NULL COMMENT '创建用户ID',
+  `CREATE_TIME` varchar(17) NULL COMMENT '创建时间',
+  `LAST_MAINTAIN_USER` varchar(30) NULL COMMENT '最后维护用户ID',
+  `LAST_MAINTAIN_TIME` varchar(17) NULL COMMENT '最后维护时间',
+  PRIMARY KEY (`CONFIG_ID`)
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '参数配置表';
+
+CREATE TABLE `CFG_USER_DEPT`  (
+  `USER_ID` varchar(30) NOT NULL COMMENT '用户ID',
+  `DEPT_ID` varchar(20) NOT NULL COMMENT '部门ID',
+  PRIMARY KEY (`USER_ID`, `DEPT_ID`)
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '用户和部门关联表';
+
+CREATE TABLE `CFG_USER_ROLE`  (
+  `USER_ID` varchar(30) NOT NULL COMMENT '用户ID',
+  `ROLE_ID` varchar(10) NOT NULL COMMENT '角色ID',
+  PRIMARY KEY (`USER_ID`, `ROLE_ID`)
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '用户和角色关联表';
+
+CREATE TABLE `MAS_DEPT_INFO`  (
+  `DEPT_ID` varchar(20) NOT NULL COMMENT '部门ID',
+  `DEPT_NAME` varchar(80) NULL COMMENT '部门名称',
+  `PARENT_ID` varchar(20) NULL COMMENT '父部门ID',
+  `ORDER_NO` int NULL DEFAULT 0 COMMENT '序号',
+  `LEADER` varchar(30) NULL COMMENT '部门负责人（用户ID）',
+  `PHONE` varchar(20) NULL COMMENT '联系电话',
+  `EMAIL_ADDR` varchar(50) NULL COMMENT '邮箱地址',
+  `STATUS` char(1) NULL COMMENT '部门状态（0正常 1停用 2删除）',
+  `CREATE_USER` varchar(30) NULL COMMENT '创建者ID',
+  `CREATE_TIME` varchar(17) NULL COMMENT '创建时间',
+  `LAST_MAINTAIN_USER` varchar(30) NULL COMMENT '最后维护人ID',
+  `LAST_MAINTAIN_TIME` varchar(17) NULL COMMENT '最后维护时间',
+  PRIMARY KEY (`DEPT_ID`)
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '部门信息主表';
+
+CREATE TABLE `MAS_INSTRUMENT_INFO`  (
+  `INSTRUMENT_ID` varchar(10) NOT NULL COMMENT '仪器ID',
+  `INSTRUMENT_NAME` varchar(150) NOT NULL COMMENT '仪器名称',
+  `PARENT_INSTRUMENT_ID` varchar(10) NULL COMMENT '父仪器ID',
+  `INSTRUMENT_MANAGER` varchar(30) NULL COMMENT '仪器负责人ID',
+  `STATUS` varchar(1) NULL COMMENT '仪器状态',
+  `CREATE_USER` varchar(30) NULL COMMENT '创建用户ID',
+  `CREATE_DATE` varchar(17) NULL COMMENT '创建时间',
+  `LAST_MAINTAIN_USER` varchar(30) NULL COMMENT '最后维护用户ID',
+  `LAST_MAINTAIN_TIME` varchar(17) NULL COMMENT '最后维护时间',
+  PRIMARY KEY (`INSTRUMENT_ID`)
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '仪器仪表信息主表';
+
+CREATE TABLE `MAS_ROLE_INFO`  (
+  `ROLE_ID` varchar(10) NOT NULL COMMENT '角色ID',
+  `ROLE_NAME` varchar(70) NOT NULL COMMENT '角色名称',
+  `ORDER_NO` int NOT NULL COMMENT '序号',
+  `STATUS` char(1) NOT NULL DEFAULT '0' COMMENT '角色状态（0正常 1停用 2删除）',
+  `CREATE_USER` varchar(30) NULL COMMENT '创建者ID',
+  `CREATE_TIME` varchar(17) NULL COMMENT '创建时间',
+  `LAST_MAINTAIN_USER` varchar(30) NULL COMMENT '最后维护人ID',
+  `LAST_MAINTAIN_TIME` varchar(17) NULL COMMENT '最后维护时间',
+  PRIMARY KEY (`ROLE_ID`)
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '角色信息主表';
+
+CREATE TABLE `MAS_USER_INFO`  (
+  `USER_ID` varchar(30) NOT NULL COMMENT '用户ID',
+  `USER_NAME` varchar(70) NULL COMMENT '用户姓名（中文简体）',
+  `USER_NAME_EN` varchar(70) NULL COMMENT '用户姓名（英文）',
+  `USER_NAME_HK` varchar(100) NULL COMMENT '用户姓名（中文繁体）',
+  `USER_TYPE` varchar(1) NOT NULL COMMENT '用户类型（0-admin, 1-user等）',
+  `EMAIL_ADDR` varchar(50) NULL COMMENT '邮箱地址',
+  `PHONE_NO` varchar(20) NULL COMMENT '手机号码',
+  `OFFICE_PHONE` varchar(20) NULL COMMENT '办公号码',
+  `HOME_PHONE` varchar(20) NULL COMMENT '家庭号码',
+  `SEX` char(1) NULL DEFAULT '2' COMMENT '性别（0男 1女 2保密）',
+  `AVATAR` varchar(120) NULL COMMENT '头像地址',
+  `PASSWORD` varchar(200) NULL COMMENT '密码',
+  `STATUS` char(1) NOT NULL DEFAULT '0' COMMENT '帐号状态（0正常 1停用 2删除 3首次登录）',
+  `EFFECTIVE_DATE` varchar(8) NOT NULL COMMENT '用户生效日期，用户在此日期之前登录会提示无效用户',
+  `LAST_LOGIN_IP` varchar(50) NULL COMMENT '最后登录IP',
+  `LOGIN_TIME` varchar(17) NULL COMMENT '最后登录时间',
+  `CREATE_USER` varchar(30) NULL COMMENT '创建人ID',
+  `CREATE_TIME` varchar(17) NOT NULL COMMENT '创建时间',
+  `LAST_MAINTAIN_USER` varchar(30) NULL COMMENT '最后维护人ID',
+  `LAST_MAINTAIN_TIME` varchar(17) NULL COMMENT '最后维护时间',
+  PRIMARY KEY (`USER_ID`)
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '用户信息主表';
+
+CREATE TABLE `TRN_INSTRUMENT_APPROVAL_ACTION`  (
+  `INSTRUMENT_ID` varchar(10) NOT NULL COMMENT '仪器ID',
+  `ORDER_NO` varchar(4) NOT NULL COMMENT '仪器流转次序',
+  `CUR_USER` varchar(30) NULL COMMENT '当前用户ID',
+  `CUR_ROLE` varchar(10) NULL COMMENT '当前角色ID',
+  `CUR_DEPT` varchar(20) NULL COMMENT '当前部门ID',
+  `FUNC_TYPE` varchar(20) NULL COMMENT '操作类型',
+  `TAR_USER` varchar(30) NULL COMMENT '目标用户ID',
+  `TAR_ROLE` varchar(10) NULL COMMENT '目标角色ID',
+  `TAR_DEPT` varchar(20) NULL COMMENT '目标部门ID',
+  `REMARK` varchar(255) NULL COMMENT '备注',
+  PRIMARY KEY (`INSTRUMENT_ID`, `ORDER_NO`)
+) ENGINE = InnoDB CHARACTER SET = utf8 COMMENT = '仪器流转申请审批轨迹表';
+
