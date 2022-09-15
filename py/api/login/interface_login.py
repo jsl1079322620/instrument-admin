@@ -23,6 +23,7 @@ class InterfaceLogin(Resource):
     def post():
         try:
             request_data = req.request_process(request)
+            logger.info('123')
             logger.info(request_data)
             login_user_id, login_password = request_data.get('user_id'), request_data.get('password')
             Auth.authenticate(login_user_id, login_password)

@@ -100,7 +100,7 @@ def get_system_time_str():
     :return:
     """
     # return time.strftime('%H%M%S', time.localtime(time.time()))
-    return str(time.time())+str(random.randint(1000000000,9999999999))
+    return str(time.time())+str(random.randint(1000,9999))
 
 
 # 把时间戳转成字符串形式
